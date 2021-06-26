@@ -2,7 +2,7 @@ import express from 'express'
 const app = express()
 import mongoose from 'mongoose'
 const port = process.env.PORT || 8080
-const API_KEY = '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'
+const API_KEY = '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'
 import sgMail from '@sendgrid/mail'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -10,7 +10,7 @@ import emailSchemaDB from './emailSchema.js'
 app.use(cors())
 let data = {}
 // app.use(express.json())
-
+sgMail.setApiKey(API_KEY)
 const connection_url = 'mongodb+srv://admin:caKGhdd4B9PDSBWx@cluster0.4yxul.mongodb.net/hackathondb?retryWrites=true&w=majority'
 
 mongoose.connect(connection_url, {
@@ -32,19 +32,25 @@ db.once('open', () => {
 
 
 
-
-
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 app.post('/api/v1/data', (req, res) => {
     console.log(req.body)
     const dbMessage = req.body
 
+    
     // sgMail.send(req.body).then((res) => {
-    //     console.log("email send")
+    //     console.log("email sent")
+    //     // console.log(res)
     // }).catch((err) => {
+    //     // console.log("error yahi bheja")
     //     console.log(err.message)
     // })
+    let newTime = Object.assign(dbMessage,  {endTime: new Date(Date.now()).toDateString()});
+    console.log(newTime);
+
+
+
     emailSchemaDB.create(dbMessage, (err, data) => {
 
         if (err) {
@@ -53,6 +59,7 @@ app.post('/api/v1/data', (req, res) => {
         else {
             res.status(201).send(data)
         }
+
     })
 })
 
@@ -70,7 +77,7 @@ app.get("/api/v1/emails", (req, res) => {
 
 
 
-sgMail.setApiKey(API_KEY)
+
 const message = {
     to: 'indiafirstshelp@gmail.com',
     from: 'itzmepratyush@gmail.com',

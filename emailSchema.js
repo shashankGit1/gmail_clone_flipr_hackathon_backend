@@ -7,6 +7,7 @@ const mayadataSchema = mongoose.Schema({
     subject: String,
     text: String,
     endTime: String,
+
 })
 
 export default mongoose.model('emailContent', mayadataSchema)
