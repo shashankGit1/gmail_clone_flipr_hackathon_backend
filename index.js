@@ -75,18 +75,6 @@ app.get("/api/v1/emails", (req, res) => {
     })
 })
 
-
-
-
-const message = {
-    to: 'indiafirstshelp@gmail.com',
-    from: 'itzmepratyush@gmail.com',
-    subject: 'Hello ',
-    text: 'Hello',
-
-}
-
-
 // listen 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
