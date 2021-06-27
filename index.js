@@ -39,13 +39,13 @@ app.post('/api/v1/data', (req, res) => {
     const dbMessage = req.body
 
     
-    // sgMail.send(req.body).then((res) => {
-    //     console.log("email sent")
-    //     // console.log(res)
-    // }).catch((err) => {
-    //     // console.log("error yahi bheja")
-    //     console.log(err.message)
-    // })
+    sgMail.send(req.body).then((res) => {
+        console.log("email sent")
+        // console.log(res)
+    }).catch((err) => {
+        // console.log("error yahi bheja")
+        console.log(err.message)
+    })
     let newTime = Object.assign(dbMessage,  {endTime: new Date(Date.now()).toDateString()});
     console.log(newTime);
 
